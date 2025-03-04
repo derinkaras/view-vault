@@ -4,7 +4,7 @@ import { deleteField, doc, updateDoc } from "firebase/firestore"
 import { db } from "../../firebase"
 
 export default function Watchlist(props){
-    const { globalData, setGlobalData } = useAuth()
+    const { globalUser, globalData, setGlobalData } = useAuth()
     const [isShowMore, setIsShowMore] = useState(false)
 
     async function deleteWatchlistItem(movieID){
@@ -13,7 +13,7 @@ export default function Watchlist(props){
         const copy = {...globalData}
         delete copy[movieID]
         setGlobalData(copy)
-        
+
         // Then update Firebase
         const userRef = doc(db, 'users', globalUser.uid);
         await updateDoc(userRef, 
