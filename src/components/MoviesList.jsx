@@ -81,8 +81,10 @@ export default function MoviesList(props) {
             )}
 
             {!data && (
-                <>
-                    <ImageCarousel data = {baseCarousel} />
+                <>  
+                    <div className='my-20'>
+                        <ImageCarousel data = {baseCarousel} />
+                    </div>
                     <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 place-items-center mb-10">
                         {baseCarousel.map((movie, index) => (
                             <div key={index} className="relative group">
@@ -129,8 +131,11 @@ export default function MoviesList(props) {
             )}
 
             {data?.length > 0 && (
-                <>
-                    <ImageCarousel data = {data} />
+                <>  
+
+                    <div className='my-20'>
+                        <ImageCarousel data = {data} />
+                    </div>
 
                     {/* Heading Section */}
                     <div className="flex justify-center items-center gap-3 text-3xl mb-10">
