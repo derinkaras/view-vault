@@ -43,7 +43,7 @@ function useMovieSearch(query) {
         
         // If we get here, we need to fetch from API
         setLoading(true);
-        const response = await fetch(`http://www.omdbapi.com/?s=${query}&apikey=${import.meta.env.VITE_OMDB_API_KEY}`);
+        const response = await fetch(`https://www.omdbapi.com/?s=${query}&apikey=${import.meta.env.VITE_OMDB_API_KEY}`)
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
