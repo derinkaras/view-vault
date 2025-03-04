@@ -59,7 +59,7 @@ export default function Watchlist(props){
                         {updatedWatchlistArray.map(([movieID, movie]) => (
                             <div
                             key={movieID}
-                            className="bg-[#1a1e32] rounded-2xl grid grid-cols-[auto_1fr_auto] items-center p-4 gap-4 shadow-lg"
+                            className="bg-[#1a1e32] rounded-2xl grid grid-cols-[auto_1fr_auto] items-center p-4 gap-4 shadow-lg py-7 h-64"
                             >
                                 {/* Movie Poster */}
                                 <img
@@ -68,24 +68,29 @@ export default function Watchlist(props){
                                     alt={movie.Title}
                                 />
 
-                                {/* Movie Details */}
-                                <div className="flex flex-col gap-2 items-center">
-                                    <p className="font-bold text-lg text-white">{movie.Title}</p>
-                                    <div className="flex gap-3 items-center">
-                                    <p className="text-yellow-300 font-medium">{movie.Year}</p>
-                                    <span className="bg-blue-600 text-white px-3 py-1 rounded-2xl text-sm font-medium">
-                                        {movie.Type}
-                                    </span>
+                                {/* Movie Details with consistent vertical spacing */}
+                                <div className="flex flex-col items-center h-full">
+                                    <div className="flex flex-col items-center mt-2">
+                                        <p className="font-bold text-lg text-white">{movie.Title}</p>
+                                        <div className="flex gap-3 items-center mt-1">
+                                            <p className="text-yellow-300 font-medium">{movie.Year}</p>
+                                            <span className="bg-blue-600 text-white px-3 py-1 rounded-2xl text-sm font-medium">
+                                                {movie.Type}
+                                            </span>
+                                        </div>
                                     </div>
-                                    <select 
-                                        className = "text-primary bg-[#0e101e] rounded-2xl max-w-35 p-2 text-center"
-                                        value={globalData[movieID].watched}
-                                        onChange={(e)=> toggleWatch(movieID, movie, e.target.value)}
-                                    >
-                                        <option className="text-center" value={true}>Finished</option>
-                                        <option className="text-center" value={false}>Still watching</option>
-                                    </select>
-                             
+                                    
+                                    {/* Selection dropdown - Centered vertically in the card */}
+                                    <div className="flex-grow flex items-center justify-center">
+                                        <select 
+                                            className="text-primary bg-[#0e101e] rounded-2xl w-34 px-2 py-2"
+                                            value={globalData[movieID].watched}
+                                            onChange={(e)=> toggleWatch(movieID, movie, e.target.value)}
+                                        >
+                                            <option value={true}>Finished</option>
+                                            <option value={false}>Still watching</option>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 {/* Delete Button */}
@@ -98,7 +103,6 @@ export default function Watchlist(props){
                             </div>
                         ))}
                     </div>
-
                      {watchlistLength > 3 &&(              
                         <button 
                             className=" mt-5 gap-2 p-2 rounded-2xl cursor-pointer bg-[#070A21] text-white border border-[#2E3561] hover:bg-[#111436] transition-colors" 
