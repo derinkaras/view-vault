@@ -1,5 +1,7 @@
 import { useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
+import { deleteField, doc, updateDoc } from "firebase/firestore"
+import { db } from "../../firebase"
 
 export default function Watchlist(props){
     const { globalData, setGlobalData } = useAuth()
@@ -11,8 +13,8 @@ export default function Watchlist(props){
         const copy = {...globalData}
         delete copy[movieID]
         setGlobalData(copy)
-
-    // Then update Firebase
+        
+        // Then update Firebase
         const userRef = doc(db, 'users', globalUser.uid);
         await updateDoc(userRef, 
             {
