@@ -5,10 +5,23 @@ export default function Watchlist(props){
     const { globalData, setGlobalData } = useAuth()
     const [isShowMore, setIsShowMore] = useState(false)
 
-    function deleteWatchlistItem(movieID){
+    async function deleteWatchlistItem(movieID){
+
+
         const copy = {...globalData}
         delete copy[movieID]
         setGlobalData(copy)
+
+    // Then update Firebase
+        const userRef = doc(db, 'users', globalUser.uid);
+        await updateDoc(userRef, 
+            {
+            [movieID]: deleteField()
+        });
+
+
+
+
     }
 
 
