@@ -1,5 +1,5 @@
 import { useState } from "react";
-import MoviesList from "./ContentList";
+import ContentList from "./ContentList";
 import useMovieSearch from "../contexts/useMovieSearch";
 
 export default function MovieContent(props) {
@@ -39,7 +39,7 @@ export default function MovieContent(props) {
                 <p className="text-center mb-5">Loading...</p>
             )}
 
-            <MoviesList data={data} isMovies = {isMovies} />
+            <ContentList data={data} isMovies = {isMovies} />
         </>
     );
 }

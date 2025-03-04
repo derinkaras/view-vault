@@ -20,13 +20,12 @@ import { db } from '../../firebase';
 import { baseAnimeCarousel, baseMoviesCarousel } from '../../utils';
 
 
-export default function MoviesList(props) {
+export default function ContentList(props) {
     const { data, isMovies } = props
     const [selectedCards, setSelectedCards] = useState({})
     const { globalData, setGlobalData } = useAuth()
     const [ showModal, setShowModal ] = useState(false)
     const { globalUser } = useAuth()
-
 
 
 
@@ -62,9 +61,6 @@ export default function MoviesList(props) {
         }
     }
 
-    useEffect(()=>{
-        console.log("CURRENT WATCHLIST: ", globalData)
-    }, [globalData])
 
     function handleCloseModal(){
         setShowModal(false)
@@ -85,6 +81,9 @@ export default function MoviesList(props) {
                     <div className='my-20'>
                         <ImageCarousel data = {isMovies ? baseMoviesCarousel : baseAnimeCarousel} />
                     </div>
+                    <p className="text-2xl font-bold border-b border-[#4649af] pb-5 mb-10">
+                        Click to Add to your Watchlist
+                    </p>
                     <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 place-items-center mb-10">
                         { (isMovies ? baseMoviesCarousel : baseAnimeCarousel).map((movie, index) => ( 
                             <div key={index} className="relative group">
@@ -188,7 +187,6 @@ export default function MoviesList(props) {
                     </div>
                 </>
             )}
-
 
 
 

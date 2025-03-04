@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
-import { deleteField, doc, updateDoc } from "firebase/firestore"
+import { deleteField, doc, setDoc, updateDoc } from "firebase/firestore"
 import { db } from "../../firebase"
 
 export default function Watchlist(props){
     const { globalUser, globalData, setGlobalData } = useAuth()
     const [isShowMore, setIsShowMore] = useState(false)
-
+    const [ hasFinished, setHadFinished ] = useState({})
     async function deleteWatchlistItem(movieID){
 
 
@@ -21,14 +21,30 @@ export default function Watchlist(props){
             [movieID]: deleteField()
         });
 
-
-
-
     }
 
 
     const updatedWatchlistArray = isShowMore ? Object.entries(globalData) : Object.entries(globalData).slice(0,3)
     const watchlistLength = Object.keys(globalData).length
+
+    function toggleWatch(movieID, movie, value) {
+        // Update the local global data
+        const newGlobalData = {...globalData}
+        const newMovieData = {
+            ...movie,
+            watched: value
+        }
+
+        newGlobalData[movieID] = newMovieData
+        setGlobalData(newGlobalData)
+    
+        // Update the firebase storage
+        const userRef = doc(db, 'users', globalUser.uid)
+        updateDoc(userRef, {
+            [movieID]: newMovieData
+        })
+    }
+
 
     return(
         <>
@@ -53,7 +69,7 @@ export default function Watchlist(props){
                                 />
 
                                 {/* Movie Details */}
-                                <div className="flex flex-col gap-2">
+                                <div className="flex flex-col gap-2 items-center">
                                     <p className="font-bold text-lg text-white">{movie.Title}</p>
                                     <div className="flex gap-3 items-center">
                                     <p className="text-yellow-300 font-medium">{movie.Year}</p>
@@ -61,7 +77,15 @@ export default function Watchlist(props){
                                         {movie.Type}
                                     </span>
                                     </div>
-                                    <p className="text-gray-400 text-sm">IMDB-ID: {movie.imdbID}</p>
+                                    <select 
+                                        className = "text-primary bg-[#0e101e] rounded-2xl max-w-35 p-2 text-center"
+                                        value={globalData[movieID].watched}
+                                        onChange={(e)=> toggleWatch(movieID, movie, e.target.value)}
+                                    >
+                                        <option className="text-center" value={true}>Finished</option>
+                                        <option className="text-center" value={false}>Still watching</option>
+                                    </select>
+                             
                                 </div>
 
                                 {/* Delete Button */}
