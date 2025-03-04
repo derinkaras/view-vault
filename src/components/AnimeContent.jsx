@@ -1,11 +1,12 @@
 import { useState } from "react";
-import MoviesList from "./MoviesList";
+import MoviesList from "./ContentList";
 import useAnimeSearch from "../contexts/useAnimeSearch";
 
-export default function AnimeContent() {
+export default function AnimeContent(props) {
     const [search, setSearch] = useState("");
     const [animeQuery, setAnimeQuery] = useState(null);
     const { data, loading, error, setError } = useAnimeSearch(animeQuery);
+    const { isMovies } = props
 
     return (
         <>
@@ -37,7 +38,7 @@ export default function AnimeContent() {
                 <p className="text-center mb-5">Loading...</p>
             )}
 
-            <MoviesList data={data} />
+            <MoviesList data={data} isMovies = {isMovies} />
         </>
     );
 }

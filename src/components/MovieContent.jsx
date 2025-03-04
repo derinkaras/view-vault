@@ -1,11 +1,13 @@
 import { useState } from "react";
-import MoviesList from "./MoviesList";
+import MoviesList from "./ContentList";
 import useMovieSearch from "../contexts/useMovieSearch";
 
-export default function MovieContent() {
+export default function MovieContent(props) {
     const [search, setSearch] = useState("");
     const [movieQuery, setMovieQuery] = useState(null);
     const { data, loading, error, setError } = useMovieSearch(movieQuery);
+
+    const {isMovies} = props
 
     return (
         <>
@@ -37,7 +39,7 @@ export default function MovieContent() {
                 <p className="text-center mb-5">Loading...</p>
             )}
 
-            <MoviesList data={data} />
+            <MoviesList data={data} isMovies = {isMovies} />
         </>
     );
 }

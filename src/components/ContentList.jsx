@@ -17,11 +17,11 @@ import Modal from './Modal';
 import Authentication from './Authentication';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
-import { baseCarousel } from '../../utils';
+import { baseAnimeCarousel, baseMoviesCarousel } from '../../utils';
 
 
 export default function MoviesList(props) {
-    const { data } = props
+    const { data, isMovies } = props
     const [selectedCards, setSelectedCards] = useState({})
     const { globalData, setGlobalData } = useAuth()
     const [ showModal, setShowModal ] = useState(false)
@@ -83,10 +83,10 @@ export default function MoviesList(props) {
             {!data && (
                 <>  
                     <div className='my-20'>
-                        <ImageCarousel data = {baseCarousel} />
+                        <ImageCarousel data = {isMovies ? baseMoviesCarousel : baseAnimeCarousel} />
                     </div>
                     <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 place-items-center mb-10">
-                        {baseCarousel.map((movie, index) => (
+                        { (isMovies ? baseMoviesCarousel : baseAnimeCarousel).map((movie, index) => ( 
                             <div key={index} className="relative group">
                             {/* Movie Card - Click to Select */}
                                 <div

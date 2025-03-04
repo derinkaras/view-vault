@@ -2,7 +2,7 @@ import { useState } from "react";
 import MovieContent from "./MovieContent";
 import AnimeContent from "./AnimeContent";
 
-export default function MoviesForm() {
+export default function ContentForm() {
     const [isMovies, setIsMovie] = useState(true);
 
     const baseButtonStyle = "text-inherit flex items-center gap-2 hover:cursor-pointer bg-white dark:bg-[#05070f] w-fit font-medium px-2 py-2 border-[1.5px] border-[#bed1e7] dark:border-[#323c71] rounded-md transition-all duration-200";
@@ -26,7 +26,7 @@ export default function MoviesForm() {
                 </button>
             </div>
 
-            {isMovies ? <MovieContent /> : <AnimeContent />}
+            {isMovies ? <MovieContent isMovies = {isMovies} /> : <AnimeContent isMovies = {isMovies} />}
         </>
     );
 }

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import Layout from './components/Layout'
 import Hero from './components/Hero'
-import MoviesForm from './components/MoviesForm'
+import ContentForm from './components/ContentForm'
 
 
 
@@ -35,7 +35,7 @@ function App() {
     <>
       <Layout>
         <Hero/>
-        <MoviesForm movies = {movies}/>
+        <ContentForm movies = {movies}/>
       </Layout>
 
     </>

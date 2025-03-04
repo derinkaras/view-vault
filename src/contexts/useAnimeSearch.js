@@ -52,7 +52,7 @@ function useAnimeSearch(query) {
         setLoading(true);
         
         // Use Jikan API v4
-        const response = await fetch(`https://api.jikan.moe/v4/anime?q=${encodeURIComponent(query)}&limit=20`);
+        const response = await fetch(`https://api.jikan.moe/v4/anime?q=${encodeURIComponent(query)}&limit=10`);
         
         // Handle rate limiting (Jikan has strict rate limits)
         if (response.status === 429) {
@@ -67,7 +67,7 @@ function useAnimeSearch(query) {
         
         // Transform the data to only include what we need
         const simplifiedResults = result.data.map(anime => ({
-          Title: anime.title,
+          Title: anime.title_english,
           Year: anime.aired?.prop?.from?.year || 'Unknown',
           imdbID: anime.mal_id,
           Type: anime.type || 'Unknown',
