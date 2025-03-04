@@ -18,12 +18,11 @@ export default function Hero(){
                     <i class="fa-solid fa-circle-info"></i>
                     <p> Did you know.... </p>
                 </div>
-                <p className="mt-2 font-bold text-2xl">That caffeine's half-liofe is about 5 hours?</p>
+                <p className="mt-2 font-bold text-2xl"> That the average person spends over 3,000 hours watching content in their lifetime?</p>
                 <p className="mt-2 text-md"> 
-                    This means the average person thinks they're spending $70 when they're actually spending $100. 
-                    UpOnly eliminates this costly blind spot by showing you exactly where every dollar goes, in real-time.
-                    No more end-of-month surprises or wondering why your account balance is lower than expected. 
-                    Our smart tracking replaces uncertainty with crystal-clear insights, so you can make confident money moves and watch your wealth grow systematically.
+                    Most viewers can only recall about 20% of what they've watched after just one month. 
+                    ViewVault helps you keep track of every show, movie, and video you consume, ensuring you never lose track of those hidden gems. 
+                    Our smart recommendation system analyzes your viewing patterns to suggest new content you'll love, saving you countless hours of scrolling and searching.
                 </p>
             </div>
             <div className="flex justify-center items-center gap-3 text-3xl my-10 border-b border-[#4649af] pb-5 ">

@@ -22,3 +22,4 @@ const app = initializeApp(firebaseConfig);
 // Exporting auth and database so it can be accessed anywhere within our project
 export const auth = getAuth(app)
 export const db = getFirestore(app)
+

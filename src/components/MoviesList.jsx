@@ -17,6 +17,7 @@ import Modal from './Modal';
 import Authentication from './Authentication';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
+import { baseCarousel } from '../../utils';
 
 
 export default function MoviesList(props) {
@@ -79,6 +80,54 @@ export default function MoviesList(props) {
                 </Modal>
             )}
 
+            {!data && (
+                <>
+                    <ImageCarousel data = {baseCarousel} />
+                    <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 place-items-center mb-10">
+                        {baseCarousel.map((movie, index) => (
+                            <div key={index} className="relative group">
+                            {/* Movie Card - Click to Select */}
+                                <div
+                                    className="flex flex-col items-center rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 cursor-pointer border border-transparent hover:border-[#4649af]"
+                                    onClick={() => toggleCardSelection(movie.imdbID)}
+                                >
+                                    {/* Movie Poster */}
+                                    <div className="h-60 w-40 flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+                                    <img
+                                        className="h-full w-full object-contain"
+                                        src={movie.Poster}
+                                        alt={movie.Title || "movie"}
+                                    />
+                                    </div>
+
+                                    {/* Movie Title */}
+                                    <p className="w-40 text-center text-sm mt-2 font-medium text-gray-800 dark:text-gray-200 truncate">
+                                    {movie.Title}
+                                    </p>
+
+                                    {/* Overlay for Selection */}
+                                    {selectedCards[movie.imdbID] && (
+                                    <div className="absolute inset-0 flex items-center justify-center bg-[#121424] opacity-90 transition-opacity duration-300">
+                                        {/* Add to Watchlist Button */}
+                                        <button
+                                        className="bg-white dark:bg-[#05070f] text-black dark:text-white font-medium px-4 py-2 border border-[#bed1e7] dark:border-[#323c71] rounded-md shadow-md transition-all duration-200 transform hover:translate-y-1 hover:shadow-none"
+                                        onClick={(e) => {
+                                            
+                                            addToWatchlist(e, movie);
+                                        }}
+                                        >
+                                        Add to Watchlist
+                                        </button>
+                                    </div>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </>
+
+            )}
+
             {data?.length > 0 && (
                 <>
                     <ImageCarousel data = {data} />
@@ -92,45 +141,45 @@ export default function MoviesList(props) {
 
                     {/* Movie Grid */}
                     <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 place-items-center mb-10">
-                    {data.map((movie, index) => (
-                        <div key={index} className="relative group">
-                        {/* Movie Card - Click to Select */}
-                            <div
-                                className="flex flex-col items-center rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 cursor-pointer border border-transparent hover:border-[#4649af]"
-                                onClick={() => toggleCardSelection(movie.imdbID)}
-                            >
-                                {/* Movie Poster */}
-                                <div className="h-60 w-40 flex items-center justify-center bg-gray-100 dark:bg-gray-800">
-                                <img
-                                    className="h-full w-full object-contain"
-                                    src={movie.Poster}
-                                    alt={movie.Title || "movie"}
-                                />
-                                </div>
+                        {data.map((movie, index) => (
+                            <div key={index} className="relative group">
+                            {/* Movie Card - Click to Select */}
+                                <div
+                                    className="flex flex-col items-center rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 cursor-pointer border border-transparent hover:border-[#4649af]"
+                                    onClick={() => toggleCardSelection(movie.imdbID)}
+                                >
+                                    {/* Movie Poster */}
+                                    <div className="h-60 w-40 flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+                                    <img
+                                        className="h-full w-full object-contain"
+                                        src={movie.Poster}
+                                        alt={movie.Title || "movie"}
+                                    />
+                                    </div>
 
-                                {/* Movie Title */}
-                                <p className="w-40 text-center text-sm mt-2 font-medium text-gray-800 dark:text-gray-200 truncate">
-                                {movie.Title}
-                                </p>
+                                    {/* Movie Title */}
+                                    <p className="w-40 text-center text-sm mt-2 font-medium text-gray-800 dark:text-gray-200 truncate">
+                                    {movie.Title}
+                                    </p>
 
-                                {/* Overlay for Selection */}
-                                {selectedCards[movie.imdbID] && (
-                                <div className="absolute inset-0 flex items-center justify-center bg-[#121424] opacity-90 transition-opacity duration-300">
-                                    {/* Add to Watchlist Button */}
-                                    <button
-                                    className="bg-white dark:bg-[#05070f] text-black dark:text-white font-medium px-4 py-2 border border-[#bed1e7] dark:border-[#323c71] rounded-md shadow-md transition-all duration-200 transform hover:translate-y-1 hover:shadow-none"
-                                    onClick={(e) => {
-                                        
-                                        addToWatchlist(e, movie);
-                                    }}
-                                    >
-                                    Add to Watchlist
-                                    </button>
+                                    {/* Overlay for Selection */}
+                                    {selectedCards[movie.imdbID] && (
+                                    <div className="absolute inset-0 flex items-center justify-center bg-[#121424] opacity-90 transition-opacity duration-300">
+                                        {/* Add to Watchlist Button */}
+                                        <button
+                                        className="bg-white dark:bg-[#05070f] text-black dark:text-white font-medium px-4 py-2 border border-[#bed1e7] dark:border-[#323c71] rounded-md shadow-md transition-all duration-200 transform hover:translate-y-1 hover:shadow-none"
+                                        onClick={(e) => {
+                                            
+                                            addToWatchlist(e, movie);
+                                        }}
+                                        >
+                                        Add to Watchlist
+                                        </button>
+                                    </div>
+                                    )}
                                 </div>
-                                )}
                             </div>
-                        </div>
-                    ))}
+                        ))}
                     </div>
                 </>
             )}
